@@ -24,9 +24,6 @@ TO DO:
 	.Easter Eggs?
 		!Snowman End.
 		.Special music for ~85%?
-
-	.Test on other browsers.
-
 DONE:
 	.Speed
 
@@ -44,3 +41,5 @@ DONE:
 		.Different kinds depending on situation
 
 	.Very Hard mode
+
+	.Test on other browsers.

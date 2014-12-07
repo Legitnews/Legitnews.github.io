@@ -14,6 +14,7 @@ var Game = {
 
 	paused : false,
 	spaceLastFrame : false,
+	altLastFrame : false,
 
 	instructionDialogue : [
 		"Instructions:\n\nThe goal of this game is to secure control over the board. This is done by placing 'nodes' by clicking the mouse on a tile on the board.",
@@ -46,6 +47,7 @@ var Game = {
 	difficultyRadioButtons : null,
 
 	instructionsButton : null,
+	controlsButton : null,
 
 	speedToDelay : {
 		1 : 500,
@@ -95,8 +97,10 @@ var Game = {
 		this.difficultyRadioButtons = document.getElementsByName("difficulty");
 
 		this.instructionsButton = document.getElementById("instructions");
+		this.controlsButton = document.getElementById("controls");
 
 		this.instructionsButton.onclick = function(){ Game.instructions(); };
+		this.controlsButton.onclick = function(){ Game.controls(); };
 
 		this.currentSong = this.music[0];
 		this.currentSong.play();
@@ -148,6 +152,17 @@ var Game = {
 			this.spaceLastFrame = false;
 		}
 
+		if (Key.isDown(Key.ALT)){
+			if (! this.altLastFrame){
+				this.altLastFrame = true;
+
+				this.mute();
+			}
+		}
+		else{
+			this.altLastFrame = false;
+		}
+
 		if (this.gameState == -1){
 			this.paused = true;
 		}
@@ -174,6 +189,10 @@ var Game = {
 		for (var i=0; i < this.instructionDialogue.length; i++){ //Stupid forward for loops.
 			alert(this.instructionDialogue[i]);
 		}
+	},
+
+	controls : function(){
+		alert("Controls:\n\nClick to place nodes\nSpcebar: Pause/Unpause\n Alt: Mute/Unmute");
 	},
 
 	checkSpeed : function(){
