@@ -1,0 +1,9 @@
+<h2>Powered by UberShit blog updater<h2>
+           <button type="button" onclick="window.location.href='blog updater.py'">UberShit blog updater source</button>
+           <br>
+        <h1>lol</h1>19:53  26/08/14<p>playin granda foto on the eks bocks an i just shot a dude<br></p>
+        <h1>I'm back</h1>18:28  30/08/13<p>I aded a list of my favrit things.<br></p>
+           <br><h1>lol fail</h1>21:40  03/06/13<p>stamps r green now wtf<br></p><h1>dudes</h1>09:08  03/06/13<p>just got a pizza wit pinappel weird huh<br></p>   <br>
+        <h1>ever notice</h1>21:53  02/06/13<p>ever notice that japanese are wierd<br></p>   <br>
+		<h1>and</h1>21:43  02/06/13<p>its ozzie by the way<br></p>   <br>
+		<h1>hi</h1>21:42  02/06/13<p>this is my blog cool huh<br><br></p>

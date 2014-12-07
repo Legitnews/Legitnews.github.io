@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>Control</title>
+
+		<!--Assets-->
+		
+		<audio name="music" src="Music/base.mp3" type="audio/mpeg" loop="true"></audio>
+		<audio name="music" src="Music/winning.mp3" type="audio/mpeg" loop="true"></audio>
+		<audio name="music" src="Music/losing.mp3" type="audio/mpeg" loop="true"></audio>
+		
+		<!--/Assets-->
+		
+        <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>-->
+        <script type="text/javascript" src="GameMaths.js"></script>
+        <script type="text/javascript" src="2D Shapes.js"></script>
+        <script type="text/javascript" src="Grid2D.js"></script>
+        <script type="text/javascript" src="Tileset.js"></script>
+        <script type="text/javascript" src="Random.js"></script>
+        <script type="text/javascript" src="Animation.js"></script>
+		
+	</head>
+	
+	<body style="background : #000000;">
+		<div style="position:relative; text-align:center; font-family:'Lucida Console', Monaco, monospace">
+
+			<font color="red" size="20">
+			<label id="redControl" style="float: left">0%</label>
+
+			<canvas id="canvas" width="800" height="600" style = "background : #FFFFFF; display: inline; position:absolute; left:0; right:0; margin-left:auto; margin-right:auto;">
+				
+	            <script type="text/javascript" src="GameBoilerplate.js"></script>
+
+	            <script type="text/javascript" src="AI.js"></script>
+	            
+				<script type="text/javascript" src="game.js"></script>
+			</canvas>
+
+			<font color="blue">
+			<label id="blueControl" style="float:right">0%</label>
+		</div>
+
+		<div style="padding-top: 600px; pointer-events: none"></div>
+
+		<div id="UI" style="position:relative; text-align:center; font-family: Verdana, Geneva, sans-serif;">
+			<font color="white" size="2">
+			<form width="800">
+				<input type="checkbox" id="pause">Pause
+				<input type="checkbox" id="mute">Mute
+				<br>
+
+				Speed:
+				<input type="radio" name="speed" value="1">Slow
+				<input type="radio" name="speed" value="2" checked="true">Medium
+				<input type="radio" name="speed" value="3">Fast
+				<input type="radio" name="speed" value="4">Max
+				<br>
+				Difficulty:
+				<input type="radio" name="difficulty" value="1">Easy
+				<input type="radio" name="difficulty" value="2" checked="true">Normal
+				<input type="radio" name="difficulty" value="3">Hard
+				<input type="radio" name="difficulty" value="4">Extreme
+				<br>
+				<input type="button" id="instructions" value="Instructions">
+			</form>
+		</div>
+	</body>
+</html>

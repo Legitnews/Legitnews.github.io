@@ -1,0 +1,197 @@
+// Class assumes access to GameMaths.js and 2D Shapes.js
+
+function Grid(topleft, size, tileSize, tileTypeToColour, screenTopleft, screenBottomRight, defaultTile){
+	
+	this.topleft = topleft;
+	this.size = size;
+	this.tileSize = tileSize;
+	
+	this.tileTypeToColour = tileTypeToColour;
+	
+	this.screenTopleft = screenTopleft ? screenTopleft : [0, 0];
+	this.screenBottomRight = screenBottomRight ? screenBottomRight : [this.size[0] * this.tileSize[0], this.size[1] * this.tileSize[1]];
+	
+	defaultTile = defaultTile ? defaultTile : 0;
+	
+	this.tileTypes = [];
+	
+	for (var i=0; i < this.size[0]; i++){
+		this.tileTypes.push([]);
+		
+		for(var j=0; j < this.size[1]; j++){
+			this.tileTypes[i].push(defaultTile);
+		}
+	}
+	
+	this.move = function(x, y){
+		if (x === 0 && y === 0){
+			return;
+		}
+		
+		this.topleft[0] += x;
+		this.topleft[1] += y;
+	};
+	
+	this.draw = function(ctx, colour, width){
+		ctx.strokeStyle = colour ? colour : "#000000";
+		ctx.lineWidth = width ? width : 1;
+		
+		var end_x = this.topleft[0] + this.size[0] * this.tileSize[0];
+		var end_y = this.topleft[1] + this.size[1] * this.tileSize[1];
+		
+		ctx.beginPath();
+		
+		var i = this.size[0] + 1;
+		
+		while(i--){
+			var pos = this.topleft[0] + i * this.tileSize[0];
+			
+			ctx.moveTo(pos, this.topleft[1]);
+			ctx.lineTo(pos, end_y);
+		}
+		
+		var j = this.size[1] + 1;
+		
+		while(j--){
+			var pos = this.topleft[1] + j * this.tileSize[1];
+						
+			ctx.moveTo(this.topleft[0], pos);
+			ctx.lineTo(end_x, pos);
+		}
+		
+		ctx.stroke();
+	};
+	
+	this.clear = function(){
+		for (var i=0; i < this.size[0]; i++){
+			for(var j=0; j < this.size[1]; j++){
+				this.tileTypes[i][j] = 0;
+			}
+		}
+	}
+	
+	this.fillTiles = function(ctx, ignoreZero){
+		
+		if (this.tileTypeToColour === undefined){
+			throw "Grid2D Error: An object is required which maps tile type to a certain colour.";
+		}
+		
+		var start_i = Math.floor((this.screenTopleft[0] - this.topleft[0]) / this.tileSize[0]);
+		var start_j = Math.floor((this.screenTopleft[1] - this.topleft[1]) / this.tileSize[1]);
+		
+		if (start_i >= this.size[0] || start_j >= this.size[1]){
+			return;
+		}
+		
+		if (start_i < 0){
+			start_i = 0;
+		}
+		
+		if (start_j < 0){
+			start_j = 0;
+		}
+		
+		var end_i = Math.ceil((this.screenBottomRight[0] - this.topleft[0]) / this.tileSize[0]);
+		var end_j = Math.ceil((this.screenBottomRight[1] - this.topleft[1]) / this.tileSize[1]);
+		
+		for (var i=start_i; i < end_i; i++){
+			if (i < 0 || i >= this.size[0]){
+				continue;
+			}
+			
+			for(var j=start_j; j < end_j; j++){
+				
+				if (j < 0 || j >= this.size[1]){
+					continue;
+				}
+				
+				var type = this.tileTypes[i][j];
+				
+				if (ignoreZero && type === 0){
+					continue;
+				}
+				
+				var x = this.topleft[0] + i * this.tileSize[0];
+				var y = this.topleft[1] + j * this.tileSize[1];
+				
+				var colour = this.tileTypeToColour[type];
+				
+				if (typeof colour === "string"){
+					ctx.fillStyle = colour;	
+					ctx.fillRect(x, y, this.tileSize[0], this.tileSize[1], 2);
+				}
+				else{
+					colour.style.width = this.tileSize[0] + "px";
+					colour.style.height = this.tileSize[1] + "px";
+					
+					ctx.drawImage(colour, x, y);
+				}
+			}
+		}
+	};
+	
+	this.pointToTile = function(point, relative){	
+		point[0] -= this.screenTopleft[0];
+		point[1] -= this.screenTopleft[1];
+		
+		if (relative){
+			point[0] += this.topleft[0];
+			point[1] += this.topleft[1];
+		}
+		
+		var coords = [Math.floor(point[0] / this.tileSize[0]), Math.floor(point[1] / this.tileSize[1])];
+		
+		if (coords[0] < 0 || coords[0] > this.size[0] || coords[1] < 0 || coords[1] > this.size[1]){
+			return null;
+		}
+		
+		return coords;
+	};
+	
+	this.surroundingTileTypes = function(tile, adjacent, diagonal){
+		adjacent = adjacent === undefined ? true : adjacent;
+		diagonal = diagonal === undefined ? true : diagonal;
+		
+		var types = [];
+		
+		if (tile[0] < 0 || tile[0] > this.size[0] || tile[1] < 0 || tile[1] > this.size[1]){
+			throw "Invalid tile co-ordiantes:" + tile;
+		}
+		
+		if (adjacent){
+			if (tile[0] > 0){
+				types.push(this.tileTypes[tile[0] - 1][tile[1]]);
+			}
+			if (tile[0] < this.size[0] - 1){
+				types.push(this.tileTypes[tile[0] + 1][tile[1]]);
+			}
+			if (tile[1] > 0){
+				types.push(this.tileTypes[tile[0]][tile[1] - 1]);
+			}
+			if (tile[1] < this.size[1] - 1){
+				types.push(this.tileTypes[tile[0]][tile[1] + 1]);
+			}
+		}
+		
+		if (diagonal){
+			if (tile[0] > 0 && tile[1] > 0){
+				types.push(this.tileTypes[tile[0] - 1][tile[1] - 1]);
+			}
+			if (tile[0] < this.size[0] - 1 && tile[1] < this.size[1] - 1){
+				types.push(this.tileTypes[tile[0] + 1][tile[1] + 1]);
+			}
+			if (tile[0] < this.size[0] - 1 && tile[1] > 0){
+				types.push(this.tileTypes[tile[0] + 1][tile[1] - 1]);
+			}
+			if (tile[0] > 0 && tile[1] - 1 < this.size[1]){
+				types.push(this.tileTypes[tile[0] - 1][tile[1] + 1]);
+			}
+		}
+		
+		return types;
+	}
+}
+
+/*function TileRef(){
+	
+}*/

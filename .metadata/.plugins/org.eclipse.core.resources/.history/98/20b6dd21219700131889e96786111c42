@@ -1,0 +1,136 @@
+var g;
+
+function init(){
+	ctx.save();
+	
+	var d = {0 : "#000044",
+			 1 : "#004400"};
+			 
+	g = new Grid([-(32 * 64 / 2), -(32 * 64 / 2)], [64 * 2, 64 * 2], [32, 32], [0, 0], [0, 0], 0, d);
+	MapGen.walk(g);
+	
+	setOriginAtCentre();
+}
+
+function zoom(scale){
+	var delta = scale * deltaTime;
+	
+	g.tileSize[0] += delta;
+	g.tileSize[1] += delta;
+	
+	g.topleft[0] -= delta * g.size[0] / (g.size[0] * g.tileSize[0] / -g.topleft[0]);
+	g.topleft[1] -= delta * g.size[1] / (g.size[1] * g.tileSize[1] / -g.topleft[1]);
+}
+
+function setOriginAtCentre(){
+	ctx.restore();
+	ctx.save();
+	
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	
+	ctx.translate(canvas.width / 2, canvas.height / 2);
+	
+	g.screenTopleft = [-canvas.width / 2, -canvas.height / 2];
+	g.screenBottomRight = [canvas.width / 2, canvas.height / 2];
+}
+
+function onMouseWheeel(e){
+    var e = window.event || e;
+    var delta=evt.detail ? evt.detail*(-120) : evt.wheelDelta;
+    
+    zoom(delta / 8);
+}
+ 
+var mousewheelevt = "on" + (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
+window.addEventListener(mousewheelevt, function(event) { onMouseWheeel(event); }, false);
+
+function update(){
+	updateDeltaTime();
+	
+	var x = 0;
+	var y = 0;
+	
+	if (Key.isDown(Key.UP)){
+		y = 400 * deltaTime;
+	}
+	
+	else if (Key.isDown(Key.DOWN)){
+		y = -400 * deltaTime;
+	}
+	
+	if (Key.isDown(Key.LEFT)){
+		x = 400 * deltaTime;
+	}
+	
+	else if (Key.isDown(Key.RIGHT)){
+		x = -400 * deltaTime;
+	}
+	
+	g.move(x, y);
+	
+	var min_x = -g.size[0] * g.tileSize[0];
+	var min_y = -g.size[1] * g.tileSize[1];
+	
+	if (g.topleft[0] > 0){
+			g.topleft[0] = 0;
+	}
+	
+	else if (g.topleft[0] < min_x){
+		g.topleft[0] = min_x;
+	}
+	
+	if (g.topleft[1] > 0){
+		g.topleft[1] = 0;
+	}
+	
+	else if (g.topleft[1] < min_y){
+		g.topleft[1] = min_y;
+	}
+	
+	if (Key.isDown(Key.ADD)){
+		zoom(10);
+	}
+	
+	else if (Key.isDown(Key.SUBTRACT)){
+		zoom(-10);
+	}
+}
+
+function render(){
+
+	ctx.clearRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+	
+	g.fillTiles(ctx, true);
+	g.draw(ctx, "rgba(192, 192, 192, 0.24)", 1);
+	
+	ctx.fillStyle = "#FFFFFF";
+	ctx.fillText(1 / deltaTime, -300, -300);
+}
+
+window.requestAnimFrame = (function(){
+	return  window.requestAnimationFrame       ||
+          	window.webkitRequestAnimationFrame ||
+          	window.mozRequestAnimationFrame    ||
+          	function( callback ){
+          		window.setTimeout(callback, 1000 / FPS);
+          	};
+})();
+
+
+function main(){
+	console.time('init timer');
+	init();
+	console.timeEnd('init timer');
+	
+	window.setInterval(update, 5);
+	
+	(function animloop(){
+  		requestAnimFrame(animloop);
+  		render();
+	})();
+	
+	window.onresize = setOriginAtCentre;
+}
+
+main();

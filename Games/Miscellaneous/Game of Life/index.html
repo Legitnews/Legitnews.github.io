@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Game Of Life</title>
+        
+        <script src="2D Shapes.js"></script>
+        <script src="GameMaths.js"></script>
+        <script src="Grid2D.js"></script>
+        
+    </head>
+    <body>
+    	
+    	<style>
+    		html, body{
+    		}
+    		
+    		html, body, canvas{
+    			background: #FFFFFF;
+    		}
+    	</style>
+    	
+        <canvas id="canvas" width="800" height="600">
+        	
+        	<h1>Jesus Christ, upgrade your browser.</h1>
+        	
+        </canvas>
+        
+        <div style="float:right">
+			<label></label>
+			
+			<button id="next">Next</button>
+			<button id="start">Start</button>
+			<button id="clear">Clear</button> <br>
+			
+			Generations: <Label id="generations">0</Label>
+			
+			<form id="speed">
+				<input type="checkbox" name="headless" id="headless">Headless</input><br>
+				
+				<h4>Speed:</h4>
+				<input type="radio" name="speed" value="slow" checked="true">Slow</input><br>
+				<input type="radio" name="speed" value="medium">Medium</input><br>
+				<input type="radio" name="speed" value="fast">Fast</input>
+				<input type="radio" name="speed" value="max">Max</input>
+			</form>
+			
+			<form id="size">
+				<h4>Size:</h4>
+				<input type="radio" name="size" value="small">Small</input><br>
+				<input type="radio" name="size" value="medium" checked="true">Medium</input><br>
+				<input type="radio" name="size" value="large">Large</input>
+			</form>
+		</div>        
+        <script src="GameBoilerplate.js"></script>
+        <script src="game.js"></script>
+    </body> 
+</html>

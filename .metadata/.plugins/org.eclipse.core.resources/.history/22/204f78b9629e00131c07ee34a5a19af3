@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Civilizationesque</title>
+        
+        <script src="2D Shapes.js"></script>
+        <script src="GameMaths.js"></script>
+        <script src="Grid2D.js"></script>
+        <script src="tileset.js"></script>
+        
+        <!--Assets-->
+        
+        <image id="tileset" src="gfx/terrain_tiles.png" width="256" height="192" style="display: none"></image>
+        
+        <!--/Assets-->
+        
+    </head>
+    <body>
+    	
+    	<style>
+    		html, body{
+    			margin: 0;
+    		}
+    		
+    		html, body, canvas{
+    			display: block;
+    			background: #000044;
+    		}
+    	</style>
+    	
+        <canvas id="canvas" width="100%" height="100%">
+        	
+        	<h1>Jesus Christ, upgrade your browser.</h1>
+        	
+        	<script src="GameBoilerplate.js"></script>
+        	<script src="mapGeneration.js"></script>
+        	<script src="game.js"></script>
+        </canvas>
+    </body> 
+</html>

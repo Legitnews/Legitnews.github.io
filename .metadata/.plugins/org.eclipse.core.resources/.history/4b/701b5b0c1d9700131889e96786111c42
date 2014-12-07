@@ -1,0 +1,40 @@
+function imageToCanvas(image, name){
+	var canvas = document.createElement("canvas");
+	canvas.width = image.width;
+	canvas.height = image.height;
+	canvas.getContext("2d").drawImage(image, 0, 0);
+
+	return canvas;
+}
+
+function subCanvas(canvas, x, y, w, h){
+	var newCanvas = document.createElement("canvas");
+	
+	newCanvas.width = w;
+	newCanvas.height = h;
+	
+	var ctx = canvas.getContext("2d");
+	var data = ctx.getImageData(x, y, w, h);	
+	console.log(data);
+	
+	newCanvas.putImageData(data, 0, 0);
+	
+	return newCanvas;
+}
+
+function Tileset(image, size, tileSize){
+	this.baseImage = image;
+	this.baseCanvas = imageToCanvas(this.baseImage);
+	this.size = size;
+	this.tileSize = tilesize;
+	
+	this.tiles = [];
+	
+	for (var i=0; i < this.size[0]; i++){
+		this.tiles.push([]);
+		
+		for (var j=0; j < this.size[1]; j++){
+			
+		}
+	}
+}

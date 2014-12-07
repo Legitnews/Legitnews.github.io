@@ -1,0 +1,25 @@
+ACTIVE_HYPERLINK_COLOR=84,143,160
+HYPERLINK_COLOR=84,143,160
+com.aptana.explorer.font=1|Consolas|10.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|0|3|2|1|49|Consolas;
+com.vectrace.mercurialeclipse.ui.colorsandfonts.IgnoredBackgroundColor=20,20,20
+com.vectrace.mercurialeclipse.ui.colorsandfonts.IgnoredForegroundColor=248,248,248
+com.vectrace.mercurialeclipse.ui.colorsandfonts.addedBackgroundColor=37,59,34
+com.vectrace.mercurialeclipse.ui.colorsandfonts.addedForegroundColor=248,248,248
+com.vectrace.mercurialeclipse.ui.colorsandfonts.changedBackgroundColor=74,65,13
+com.vectrace.mercurialeclipse.ui.colorsandfonts.changedForegroundColor=248,248,248
+com.vectrace.mercurialeclipse.ui.colorsandfonts.conflictBackgroundColor=20,20,20
+com.vectrace.mercurialeclipse.ui.colorsandfonts.conflictForegroundColor=248,248,248
+com.vectrace.mercurialeclipse.ui.colorsandfonts.deletedBackgroundColor=66,14,9
+com.vectrace.mercurialeclipse.ui.colorsandfonts.deletedForegroundColor=248,248,248
+com.vectrace.mercurialeclipse.ui.colorsandfonts.removedBackgroundColor=66,14,9
+com.vectrace.mercurialeclipse.ui.colorsandfonts.removedForegroundColor=248,248,248
+com.vectrace.mercurialeclipse.ui.colorsandfonts.unknownBackgroundColor=20,20,20
+com.vectrace.mercurialeclipse.ui.colorsandfonts.unknownForegroundColor=248,248,248
+eclipse.preferences.version=1
+hyperlinkColor=84,143,160
+hyperlinkColor.SystemDefault=false
+org.eclipse.egit.ui.UncommittedChangeBackgroundColor=37,59,34
+org.eclipse.egit.ui.UncommittedChangeForegroundColor=248,248,248
+org.eclipse.jface.textfont=1|Consolas|11.25|0|WINDOWS|1|-15|0|0|0|400|0|0|0|0|3|2|1|49|Consolas;
+org.eclipse.ui.commands=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<org.eclipse.ui.commands>\r\n<keyBinding contextId\="org.eclipse.ui.textEditorScope" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+D"/>\r\n<keyBinding contextId\="org.eclipse.ui.textEditorScope" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+D"/>\r\n<keyBinding commandId\="com.aptana.ui.ftp.command.duplicate" contextId\="org.eclipse.ui.textEditorScope" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+D"/>\r\n</org.eclipse.ui.commands>
+org.eclipse.ui.workbench.texteditor.blockSelectionModeFont=1|Consolas|11.25|0|WINDOWS|1|-15|0|0|0|400|0|0|0|0|3|2|1|49|Consolas;

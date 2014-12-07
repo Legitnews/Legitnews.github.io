@@ -1,0 +1,46 @@
+.GROOVY MOVIES
+
+.TOWER DEFENCE
+
+! 1v1 strategy on one screen.
+	Grid. Click a square, claim it, it spreads influence.
+	Influenced squares spread a little influence too. Claim squares
+	from influenced. Both player and AI teams try to compete for most influence / influence all / wipe eachother out.
+
+
+Names:
+	!Control
+	.Spread
+	.Encircle
+	.Go 2: Go Faster
+	.Conway's Game of Life TOURNAMENT EDITION.
+	.Bingo Bengo
+
+TO DO:
+	.Better instructions.
+
+	.Special tiles with borders?
+
+	.Easter Eggs?
+		!Snowman End.
+		.Special music for ~85%?
+
+	.Test on other browsers.
+
+DONE:
+	.Speed
+
+	.Difficulty 
+		.Easy gives bonuses to the player's influence spread.
+		.Hard enables stronger AI.
+		.Extreme is Hard AI + AI bonuses.
+
+	.Cool title screen
+		.A game grid that spells out the title.
+
+	.Instructions / Controls / Tutorial
+
+	.Music
+		.Different kinds depending on situation
+
+	.Very Hard mode
