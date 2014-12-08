@@ -8,9 +8,11 @@ canvas.oncontextmenu = function(e){ e.preventDefault(); return false; };
 
 var Game = {
 	
-	started : true,
+	started : false,
 
 	grid : null,
+
+	title : null,
 
 	paused : false,
 	spaceLastFrame : false,
@@ -61,10 +63,12 @@ var Game = {
 	difficulty : 2,
 	
 	intro : function(){
-		
+		ctx.drawImage(this.title, 0, 0);
 	},
 	
 	init : function(){
+		this.title = document.getElementById("title");
+
 		this.intro();
 
 		var intToTileRender = {
@@ -100,8 +104,18 @@ var Game = {
 		this.controlsButton = document.getElementById("controls");
 
 		this.instructionsButton.onclick = function(){ Game.instructions(); };
-		this.controlsButton.onclick = function(){ Game.controls(); };
+		this.controlsButton.onclick = function(){ Game.controls(); };	
 
+		var tile = new Vector2();
+
+		for (tile.x=8; tile.x >= 0; tile.x--){
+			for(tile.y=this.grid.size.y-1; tile.y >= 0; tile.y--){
+				this.grid.setTileType(tile, 5);
+			}
+		}
+	},
+
+	begin : function(){
 		this.currentSong = this.music[0];
 		this.currentSong.play();
 
@@ -112,13 +126,7 @@ var Game = {
 		window.setInterval(function(){ Game.checkDifficulty(); }, 100);
 		window.setInterval(function(){ Game.updateSong(); }, 100);
 
-		var tile = new Vector2();
-
-		for (tile.x=8; tile.x >= 0; tile.x--){
-			for(tile.y=this.grid.size.y-1; tile.y >= 0; tile.y--){
-				this.grid.setTileType(tile, 5);
-			}
-		}
+		canvas.onmousedown = function(e){ Game.onClick(e)};
 
 		if (!readCookie("hasPlayedBefore")){
 			createCookie("hasPlayedBefore", true);
@@ -132,6 +140,7 @@ var Game = {
 		if (! this.started){
 			if (Key.isDown(Key.ENTER)){
 				this.started = true;
+				this.begin();
 			}
 			
 			return;
@@ -152,7 +161,7 @@ var Game = {
 			this.spaceLastFrame = false;
 		}
 
-		if (Key.isDown(Key.ALT)){
+		if (Key.isDown(Key.M)){
 			if (! this.altLastFrame){
 				this.altLastFrame = true;
 
@@ -192,13 +201,13 @@ var Game = {
 	},
 
 	controls : function(){
-		alert("Controls:\n\nClick to place nodes\nSpcebar: Pause/Unpause\n Alt: Mute/Unmute");
+		alert("Controls:\n\nClick to place nodes\nSpacebar: Pause/Unpause\n M: Mute/Unmute");
 	},
 
 	checkSpeed : function(){
 		var button;
 
-		for (var i=this.speedRadioButtons.length-1; i >= 0; i--){
+		for (var i=this.speedRadioButtons.length-1; i >= 0; i--){ //That's more like it.
 			button = this.speedRadioButtons[i];
 
 			if (button.checked){
@@ -503,8 +512,6 @@ var Game = {
 		alert("Your opponent controls over 60% of the board.\nYou Lose!");
 	},
 }
-
-canvas.onmousedown = function(e){ Game.onClick(e)};
 
 function init(){
 	Game.init();

@@ -82,6 +82,8 @@ var Key = {
 	S : 83,
 	D : 68,
 
+	M : 77,
+
 	isDown: function(keyCode) {
 		return this._pressed[keyCode];
 	},
