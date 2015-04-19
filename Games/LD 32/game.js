@@ -44,11 +44,11 @@ var Game = {
 		 	"May 2003, Westminster.",
 		],
 		[
-			"Blair",
+			"Tony Blair",
 		 	"As you can all see, Iraq has access to Weapons of Mass Destruction. We must invade."
 		],
 		[
-			"Clare",
+			"Clare Short",
 		 	"But you haven't even consulted the Cabinet on this matter. Declaring war now would border on tyrannical."
 		],
 		[
@@ -210,11 +210,11 @@ var Game = {
 			return;
 		}
 
-		if (this.dialogue[this.dialogueIndex][0] == "Blair"){
+		if (this.dialogue[this.dialogueIndex][0] == "Tony Blair"){
 			this.drawBlair = true;
 		}
 
-		if (this.dialogue[this.dialogueIndex][0] == "Clare"){
+		if (this.dialogue[this.dialogueIndex][0] == "Clare Short"){
 			this.drawClare = true;
 		}
 

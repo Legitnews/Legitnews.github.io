@@ -26,6 +26,12 @@ function Bar(){
 	this.started = false;
 	this.over = false;
 
+	this.progress1 = document.getElementById("progress1");
+	this.progress2 = document.getElementById("progress2");
+
+	this.played1 = false;
+	this.played2 = false;
+
 	this.update = function(deltaTime){
 		if (!this.started || this.over){
 			return;
@@ -36,6 +42,17 @@ function Bar(){
 			this.over = true;
 			return;
 		}
+
+		if (this.timeToWin <= 15 && ! this.played1){
+			this.progress1.play();
+			this.played1 = true;
+		}
+
+		if (this.timeToWin <= 7.5 && ! this.played2){
+			this.progress2.play();
+			this.played2 = true;
+		}
+
 
 		this.cursorJumpTimeLeft -= deltaTime;
 
