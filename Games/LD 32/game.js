@@ -245,11 +245,7 @@ function main(){
 	console.timeEnd('init timer');
 	
 	window.setInterval(update, 5);
-	
-	(function animloop(){
-  		requestAnimFrame(animloop);
-  		render();
-	})();
+	window.setInterval(render, 20);
 }
 
 setTimeout(main, 100);
