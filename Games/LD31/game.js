@@ -4,7 +4,7 @@
  
 "use strict";
  
-canvas.oncontextmenu = function(e){ e.preventDefault(); return false; };
+canvas.oncontextmenu = function (e) { e.preventDefault(); return false; };
 
 var Game = {
 	
@@ -62,7 +62,7 @@ var Game = {
 	currentSpeed : 2,
 	difficulty : 2,
 	
-	intro : function(){
+	intro : function () {
 		ctx.drawImage(this.title, 0, 0);
 	},
 	

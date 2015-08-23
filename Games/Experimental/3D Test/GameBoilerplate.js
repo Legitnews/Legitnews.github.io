@@ -1,6 +1,6 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-ctx.font = "72px Verdana";
+ctx.font = "32px Verdana";
 
 var FPS = 60;
 

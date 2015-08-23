@@ -1,9 +1,12 @@
 init3D(canvas, ctx);
 
-var cuboid = new Cuboid(new Vector3(0, 0, 0), new Vector3(50, 50, 50));
+var cuboid = new Cuboid(new Vector3(0, 0, 0), new Vector3(30, 30, 30));
 
 var centre;
 var oldCentre = new Vector2(canvas.width / 2, canvas.height / 2);
+
+var FOVslider = document.getElementById("fov");
+FOVslider.value = Camera.FOV * (FOVslider.max / (2*Math.PI))
 
 function update(){
     updateDeltaTime();
@@ -48,12 +51,14 @@ function update(){
             Camera.mode = "perspective";
         }
     }
+
+    Camera.FOV  = FOVslider.value * ((2*Math.PI) / FOVslider.max)
 }
 
 function render(){    
     Camera.render(ctx);
     
-    ctx.fillText(Math.ceil(1 / deltaTime), -200, -200);
+    ctx.fillText(Math.ceil(1 / deltaTime), canvas.width / 2 * -1, canvas.width / 2 * -1 + 32);
 }
 
 window.setInterval(update, 5);

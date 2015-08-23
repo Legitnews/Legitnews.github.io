@@ -14,6 +14,8 @@ var Camera = {
     nearClipping : 0,
     farClipping : 1000,
     layerMask : null,
+
+    FOV : 2 * Math.PI / 3,
     
     mode : "perspective",
     
@@ -65,7 +67,7 @@ var Camera = {
             return null;
         }
         
-        var e = new Vector3(0, 0, -100);
+        var e = new Vector3(0, 0, -(1 / Math.tan(this.FOV / 2)) * SCREENSIZE.x * 2);
         var d = new Vector3(0, 0, 0);
         
         var x = (node.x - this.pos.x);
