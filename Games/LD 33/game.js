@@ -269,7 +269,7 @@ var Game = {
     this.QTEDone = false;
     window.setTimeout(function() { window.clearInterval(Game.QTEInterval); Game.QTEText = null; if (!Game.QTEDone) Game.QTEFail(); } , timeout);
     this.QTEText = "Press " + this.KeySymbol[key] + "!";
-    this.QTEInterval = window.setInterval(function() {if (Key.isDown(Key[key])) {Game.QTEPress();} else{ for(var i=0; i < Game.QTEKeys.length; i++) {console.log(i); if (Key.isDown(Game.QTEKeys[i])) Game.QTEFail(); } }  }, 1);
+    this.QTEInterval = window.setInterval(function() {if (Key.isDown(Key[key])) Game.QTEPress();}, 1);
     this.rickGun(timeout);
   },
 
@@ -307,9 +307,9 @@ var Game = {
     this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys), 1000); }, 2000));
     this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  600); }, 4000));
     this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  500); }, 5500));
-    this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  400); }, 6800));
-    this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  350); }, 7500));
-    this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  300); }, 8200));
+    this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  450); }, 6800));
+    this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  400); }, 7500));
+    this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) Game.QTEKey(Random.choice(Game.QTEKeys),  350); }, 8200));
 
     this.QTETimeouts.push(window.setTimeout(function(){ if(!Game.lost) { Game.minigameDone = true; Game.nextTextbox(); }}, 8600));
   },
