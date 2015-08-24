@@ -77,7 +77,7 @@ var Game = {
 		],
     [
 			"Blair",
-		 	"I'm autorising the use of nuclear weapons."
+		 	"I'm authorising the use of nuclear weapons. We must bring an end to this conflict."
 		],
     [
       "Rick McSlick",
@@ -269,7 +269,7 @@ var Game = {
     this.QTEDone = false;
     window.setTimeout(function() { window.clearInterval(Game.QTEInterval); Game.QTEText = null; if (!Game.QTEDone) Game.QTEFail(); } , timeout);
     this.QTEText = "Press " + this.KeySymbol[key] + "!";
-    this.QTEInterval = window.setInterval(function() {if (Key.isDown(Key[key])) Game.QTEPress(); }, 1);
+    this.QTEInterval = window.setInterval(function() {if (Key.isDown(Key[key])) {Game.QTEPress();} else{ for(var i=0; i < Game.QTEKeys.length; i++) {console.log(i); if (Key.isDown(Game.QTEKeys[i])) Game.QTEFail(); } }  }, 1);
     this.rickGun(timeout);
   },
 
@@ -353,8 +353,12 @@ var Game = {
 		}
 
 		this.currTextbox = new TextBox(this.dialogue[this.dialogueIndex][1], this.dialogue[this.dialogueIndex][0]);
-		if (this.dialogueSounds[this.dialogueIndex])
+    if (this.dialogueSounds[this.dialogueIndex-1]){
+      this.dialogueSounds[this.dialogueIndex-1].pause();
+    }
+		if (this.dialogueSounds[this.dialogueIndex]){
 			this.dialogueSounds[this.dialogueIndex].play();
+    }
 		this.dialogueIndex++;
 	}
 }
