@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<link rel="stylesheet" type="text/css" href="index.css">
+
+	<head>
+
+		<title>Line Dude and Wall Guy</title>
+
+		<!--Assets-->
+			<image id="tiles" class="tiles" src="tiles.png"></image>
+
+		<!--/Assets-->
+
+        <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>-->
+	  <script type="text/javascript" src="GameMaths.js"></script>
+	  <script type="text/javascript" src="2D Shapes.js"></script>
+	  <script type="text/javascript" src="Grid2D.js"></script>
+	  <script type="text/javascript" src="Tileset.js"></script>
+	  <script type="text/javascript" src="Random.js"></script>
+	  <script type="text/javascript" src="Animation.js"></script>
+
+	</head>
+
+	<body>
+
+		<div id="settings" class="settings">
+			Settings:
+			<form class="settingForm">
+				Width: <input type="text" id="widthInput" class="settingText" value="15"> <br>
+				Height: <input type="text" id="heightInput" class="settingText" value="9"> <br><br>
+				Autoplay <input type="checkbox" id="autoplayCheck">
+			</form>
+
+			<br><br><br>
+			Turn: <span id="turnPlayer">Line Dude</span>
+
+		</div>
+
+		<div id="canvasDiv" class="canvasDiv">
+			<canvas id="canvas">
+				<script type="text/javascript" src="GameBoilerplate.js"></script>
+
+				<script type="text/javascript" src="game.js"></script>
+			</canvas>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+html{
+  width: 100%;
+  height: 100%;
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.tiles{
+  display: none;
+}
+
+.canvasDiv{
+  display: inline-block;
+	position: absolute;
+
+  width: 100%;
+  height: 100%;
+}
+
+.settings{
+  position: absolute;
+  padding-left: 70%;
+  width: 10%;
+  display: block;
+  z-index: 1;
+}
+
+.settingForm{
+}
+
+.settingText{
+  width: 2em;
+}
+
+canvas{
+  background : #F0F8F0;
+  outline: 2px solid #888888;
+  box-shadow: -10px 10px 5px #888888;
+  display: block;
+
+  margin-top: 1%;
+
+  margin-left:auto;
+  margin-right: auto;
+
+  image-rendering: optimizeSpeed;
+  image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+}

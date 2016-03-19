@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html>
 	<head>
+
         <script type="text/javascript" src="GameMaths.js"></script>
         <script type="text/javascript" src="3D Shapes.js"></script>
 	</head>
-	
+
 	<body>
-		<canvas id="canvas" width="600" height="600" 
+		<canvas id="canvas" width="1500%" height="800%"
 				style="border:1px solid #000000; position: relative;
-				box-shadow: 10px 10px 5px #888888; cursor: none;">
-                
+				box-shadow: 10px 10px 5px #888888;
+				background: #000000; display: block; box-sizing:border-box; vertical-align: left">
+
             <script type="text/javascript" src="GameBoilerplate.js"></script>
 		</canvas>
+		<br>
+		<form style="align: right; display: block;" onClick="updateModel()">
+			Model:
+			<input name = "model" type="radio" value="Cube"> Cube
+			<input name = "model" type="radio" value="Pyramid"> Pyramid
+			<input name = "model" type="radio" value="Hand"> Hand
+		</form>
 
 		<br><br>
 		FOV:
-		0<input type="range" id="fov" max="1000">2&pi;
+		0<input type="range" id="fov" max="10000">2&pi; <br>
+		Stereoscopic <input type="checkbox" id="stereo">
 	</body>
 
 	<script type="text/javascript" src="3D Test.js"></script>
