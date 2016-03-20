@@ -66,6 +66,8 @@ var turnPlayer = document.getElementById("autoplayCheck");
 var Game = {
 
 	started : false,
+	onStartDone : false,
+
 	maxWidthPercent : 0.8,
 	maxHeightPercent : 0.95,
 
@@ -81,7 +83,7 @@ var Game = {
 
 	autoplay : false,
 
-	tileset : new Tileset(tiles, [16, 16], [8, 8], 1),
+	tileset : null,
 
 	/*
 		Tile Types:
@@ -96,25 +98,33 @@ var Game = {
 	*/
 
 	intro : function(){
-
 	},
 
 	init : function(){
-		this.adjustAspectRatioFromInput();
-
 		ctx.imageSmoothingEnabled = false;
 		ctx.mozImageSmoothingEnabled = false;
 		ctx.webkitImageSmoothingEnabled = false;
 	},
 
+	onStart : function(){
+		if (this.onStartDone){
+			return;
+		}
+
+		this.onStartDone = true;
+
+		this.adjustAspectRatioFromInput();
+		this.tileset = new Tileset(tiles, [16, 16], [8, 8], 1);
+	},
+
 	update : function(){
 
 		if (! this.started){
-			if (Key.isDown(Key.ENTER)){
-				this.started = true;
-			}
-
 			return;
+		}
+
+		if (! this.onStartDone){
+			this.onStart();
 		}
 
 		if (this.autoplay){
