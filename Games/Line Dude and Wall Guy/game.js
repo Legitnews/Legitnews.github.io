@@ -61,7 +61,7 @@ function arrOrEq(a, eqs, wildcard){
 var widthInput = document.getElementById("widthInput");
 var heightInput = document.getElementById("heightInput");
 var autoplayCheck = document.getElementById("autoplayCheck");
-var turnPlayer = document.getElementById("autoplayCheck");
+var turnPlayer = document.getElementById("turnPlayer");
 
 var Game = {
 
@@ -113,7 +113,7 @@ var Game = {
 
 		this.onStartDone = true;
 
-		this.tileset = new Tileset(tiles, [16, 16], [8, 8], 1);
+		this.tileset = new Tileset(tiles, [4, 16], [8, 8], 1);
 		this.adjustAspectRatioFromInput();
 	},
 
