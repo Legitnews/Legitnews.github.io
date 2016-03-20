@@ -714,7 +714,13 @@ window.onmousedown = function(e){ if (!Game.started) { return; }; Game.onClick(e
 widthInput.onchange = function(){ if (!Game.started) { return; }; Game.adjustAspectRatioFromInput(); };
 heightInput.onchange = function(){ if (!Game.started) { return; }; Game.adjustAspectRatioFromInput(); };
 autoplayCheck.onchange = function(){ if (!Game.started) { return; }; Game.toggleAutoplay(); };
-tiles.onload = function(){ Game.started = true };
+
+if (tiles.complete){
+	Game.started = true;
+}
+else{
+	tiles.onload = function(){ Game.started = true };
+}
 
 function init(){
 	Game.init();
