@@ -65,7 +65,7 @@ var turnPlayer = document.getElementById("autoplayCheck");
 
 var Game = {
 
-	started : true,
+	started : false,
 	maxWidthPercent : 0.8,
 	maxHeightPercent : 0.95,
 
@@ -704,6 +704,7 @@ window.onmousedown = function(e){ Game.onClick(e);};
 widthInput.onchange = function(){ Game.adjustAspectRatioFromInput(); };
 heightInput.onchange = function(){ Game.adjustAspectRatioFromInput(); };
 autoplayCheck.onchange = function(){ Game.toggleAutoplay(); };
+tiles.onload = function(){ Game.started = true };
 
 function init(){
 	Game.init();
