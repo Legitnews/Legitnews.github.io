@@ -113,8 +113,8 @@ var Game = {
 
 		this.onStartDone = true;
 
-		this.adjustAspectRatioFromInput();
 		this.tileset = new Tileset(tiles, [16, 16], [8, 8], 1);
+		this.adjustAspectRatioFromInput();
 	},
 
 	update : function(){
