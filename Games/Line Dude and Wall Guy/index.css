@@ -13,20 +13,12 @@ body{
   display: none;
 }
 
-.canvasDiv{
-  display: inline-block;
-	position: absolute;
-
-  width: 100%;
-  height: 100%;
-}
-
 .settings{
-  position: absolute;
-  padding-left: 70%;
-  width: 10%;
+  position: fixed;
   display: block;
-  z-index: 1;
+  box-sizing: border-box;
+  float: right;
+  z-index: 1
 }
 
 .settingForm{
@@ -34,6 +26,14 @@ body{
 
 .settingText{
   width: 2em;
+}
+
+.canvasDiv{
+  display: inline-block;
+	position: absolute;
+
+  width: 100%;
+  height: 100%;
 }
 
 canvas{

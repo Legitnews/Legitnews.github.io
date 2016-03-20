@@ -58,6 +58,11 @@ function arrOrEq(a, eqs, wildcard){
 	return true;
 }
 
+var widthInput = document.getElementById("widthInput");
+var heightInput = document.getElementById("heightInput");
+var autoplayCheck = document.getElementById("autoplayCheck");
+var turnPlayer = document.getElementById("autoplayCheck");
+
 var Game = {
 
 	started : true,
@@ -136,6 +141,8 @@ var Game = {
 	},
 
 	checkMoveLineDude : function(tile){
+		console.log(tile);
+
 		var type = this.grid.getTileType(tile);
 		var context = this.getTileContext(tile);
 
@@ -245,7 +252,7 @@ var Game = {
 	},
 
   onClick : function(e){
-		var tile = this.grid.pxToTileCoords(mousePos);
+		var tile = this.grid.pxToTileCoords([e.offsetX, e.offsetY]);
 
 		if (e.button === 0){
 			this.playTurn(tile);
@@ -393,7 +400,7 @@ var Game = {
 
 		//I'm so sorry
 
-		//God there's probably some beautiful mathematical solution to this an i'm just sitting typing out numbers.
+		//God there's probably some beautiful mathematical solution to this and i'm just sitting typing out numbers.
 
 		if (type === 0){
 			return -1;
@@ -599,7 +606,7 @@ var Game = {
 
 		canvas.width = Math.floor(newWidth / this.gridWidth) * this.gridWidth;
 		canvas.height = Math.floor((newWidth / ratio) / this.gridHeight) * this.gridHeight;
-		settings.style.paddingLeft = ((window.innerWidth + newWidth)/2 + "px");
+		settings.style.marginLeft = ((window.innerWidth + newWidth)/2 + "px");
 
 		ctx.imageSmoothingEnabled = false;
 		ctx.mozImageSmoothingEnabled = false;
@@ -693,7 +700,7 @@ var Game = {
 }
 
 window.onresize = function(){ Game.resizeCanvas(); Game.remakeGrid(); };
-canvas.onmousedown = function(e){ Game.onClick(e); };
+window.onmousedown = function(e){ Game.onClick(e);};
 widthInput.onchange = function(){ Game.adjustAspectRatioFromInput(); };
 heightInput.onchange = function(){ Game.adjustAspectRatioFromInput(); };
 autoplayCheck.onchange = function(){ Game.toggleAutoplay(); };
