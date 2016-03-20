@@ -709,11 +709,11 @@ var Game = {
   },
 }
 
-window.onresize = function(){ Game.resizeCanvas(); Game.remakeGrid(); };
-window.onmousedown = function(e){ Game.onClick(e);};
-widthInput.onchange = function(){ Game.adjustAspectRatioFromInput(); };
-heightInput.onchange = function(){ Game.adjustAspectRatioFromInput(); };
-autoplayCheck.onchange = function(){ Game.toggleAutoplay(); };
+window.onresize = function(){ if (!Game.started) { return; }; Game.resizeCanvas(); Game.remakeGrid(); };
+window.onmousedown = function(e){ if (!Game.started) { return; }; Game.onClick(e);};
+widthInput.onchange = function(){ if (!Game.started) { return; }; Game.adjustAspectRatioFromInput(); };
+heightInput.onchange = function(){ if (!Game.started) { return; }; Game.adjustAspectRatioFromInput(); };
+autoplayCheck.onchange = function(){ if (!Game.started) { return; }; Game.toggleAutoplay(); };
 tiles.onload = function(){ Game.started = true };
 
 function init(){
