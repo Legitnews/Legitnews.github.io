@@ -1,0 +1,12 @@
+Investigator@Work-PC
+OS: Auctoritas Linux
+Kernel: x86_256 Linux 11.17.3-1
+Uptime: 5m
+Last Login: 2308/08/27
+Packages: 341726
+Font: Mononoki
+CPU: Octocomm Cluster Mk.III
+RAM: 284GiB / 15910GiB
+
+You have 3 new mail(s). Type "mail" to read them.
+Type "help" for more commands.

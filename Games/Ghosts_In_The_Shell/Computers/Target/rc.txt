@@ -1,0 +1,14 @@
+mabel@Bunker-PC
+OS: Ubuntu Linux
+Kernel: x86_64 Linux 4.7.1-1-generic
+Uptime: 287y
+Last Login: 2021/06/13
+Packages: 964
+Font: Mononoki
+CPU: Intel i5 7670 @ 4.0Ghz
+RAM: 2451MiB / 16384MiB
+
+REMINDER: Using the computer system to spread sinful thoughts or promote sinful
+actions is STRICTLY FORBIDDEN. You have been warned.
+-The Leader
+

@@ -1,0 +1,28 @@
+system-manual.txt
+
+Computer System Technical Manual
+
+SPECIFICATIONS
+Your model comes equipped as standard with the following hardware
+
+Intel i5 7670 processor
+16 GB of RAM
+8 DisplayPort 1.2 ports for monitor display
+32 USB 3.1 slots for peripherals
+
+USER ACCOUNTS
+
+User accounts all have a username, a password, a home folder and a mailbox.
+
+Usernames consist entirely of lower-case alphabetical characters
+with no spaces and have maximum length of 16
+
+Passwords consist entirely of lower-case alphanumeric characters
+with no spaces and have maximum length of 8
+
+Each home folder and mailbox is unique, and cannot be seen by any other user account
+
+MISC. COMMANDS
+These commands are not included in "help" as they are not needed by the average user.
+
+lsusers - List all users on the system

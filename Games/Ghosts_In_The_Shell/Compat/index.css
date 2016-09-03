@@ -1,0 +1,71 @@
+@font-face {
+    font-family: "mononoki";
+    src: url("mononoki-Regular.ttf");
+}
+
+@font-face {
+    font-family: "mononoki-Bold";
+    src: url("mononoki-Bold.ttf");
+}
+
+body{
+  margin: 1em;
+  background : #FFFFFF;
+  font-family: "mononoki";
+  font-size: 16;
+}
+
+#terminal{
+  background : #222222;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "mononoki";
+  font-size: 16px;
+  width: 96ch;
+}
+
+#termDisplay{
+  background : transparent;
+  outline: none;
+  border: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  display: block;
+  font-family: "mononoki";
+  font-size: 16px;
+  color: #8AC697;
+  resize: none;
+  line-height: 1;
+  box-sizing: border-box;
+  overflow: auto;
+  opacity: 1;
+  text-rendering: optimizeLegibility;
+}
+
+#statusBarBG{
+  background : darkred;
+}
+
+#statusBar{
+  background : transparent;
+  outline: none;
+  border: none;
+  margin-top: 0;
+  padding-top: 0;
+  display: block;
+  font-family: "mononoki-bold";
+  font-size: 16px;
+  color: black;
+  resize: none;
+  line-height: 1;
+  height: 1em;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+#termInput{
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}

@@ -22,6 +22,14 @@ var submitButton = document.getElementById("submit");
 var usersBox = document.getElementById("users");
 var usernameInput = document.getElementById("username");
 
+var xmlhttp = new XMLHttpRequest();
+
+function testRequest(){
+    //console.log(xmlhttp.readyState);
+    xmlhttp.open("GET", "/");
+    xmlhttp.send("Hello");
+}
+
 var Host = {
 	users : [],
 	

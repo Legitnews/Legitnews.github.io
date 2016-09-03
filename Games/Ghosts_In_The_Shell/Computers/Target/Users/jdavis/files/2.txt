@@ -1,0 +1,13 @@
+security.txt
+
+Outstanding computer security concerns:
+
+Potenital infiltration attempt detected on 06/06/2021
+
+Two accounts have no password, Mabel and Terrence.
+
+Power has been pretty inconsistent lately, could damage hardware.
+Must be a fult in the line.
+
+
+If only I had an AI construct to handle security for me...
