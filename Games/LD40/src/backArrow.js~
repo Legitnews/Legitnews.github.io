@@ -1,0 +1,20 @@
+var BackArrow = {
+    imageLow : document.getElementById("arrow_low"),
+    imageHigh : document.getElementById("arrow_high"),
+    bounds : new Rect([0.43, 0.86], [0.12, 0.08]),
+    
+    draw : function(ctx, mousePos){
+        var scaledBounds = scaleRect(this.bounds)
+        
+        if (scaledBounds.collidePoint(mousePos)){
+            ctx.drawImage(this.imageHigh, 0, 0, canvas.width, canvas.height);
+        }
+        else{
+            ctx.drawImage(this.imageLow, 0, 0, canvas.width, canvas.height);
+        }
+    },
+    
+    checkClick : function(mousePos){
+        return scaleRect(this.bounds).collidePoint(mousePos);
+    }
+};

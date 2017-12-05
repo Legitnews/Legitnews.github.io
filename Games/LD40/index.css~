@@ -1,0 +1,28 @@
+@font-face {
+    font-family: "Snoot";
+    src: url("px10.ttf");
+}
+
+body{
+    margin: 1em;
+    background : #FFFFFF;
+}
+
+#canvas{
+    background : #000000;
+    outline: 2px solid #000000;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    image-rendering: optimizeSpeed;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+.asset{
+    display: none;
+}

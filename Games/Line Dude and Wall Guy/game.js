@@ -101,9 +101,6 @@ var Game = {
 	},
 
 	init : function(){
-		ctx.imageSmoothingEnabled = false;
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.webkitImageSmoothingEnabled = false;
 	},
 
 	onStart : function(){
@@ -617,10 +614,6 @@ var Game = {
 		canvas.width = Math.floor(newWidth / this.gridWidth) * this.gridWidth;
 		canvas.height = Math.floor((newWidth / ratio) / this.gridHeight) * this.gridHeight;
 		settings.style.marginLeft = ((window.innerWidth + newWidth)/2 + "px");
-
-		ctx.imageSmoothingEnabled = false;
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.webkitImageSmoothingEnabled = false;
 	},
 
   remakeGrid: function(width, height){

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<!--
+Attribution:
+Cabinet image and ideas: Neska Connon
+Glass sfx: http://opengameart.org/users/spookymodem
+Door sfx: https://medium.com/@qubodup
+Water sfx: http://opengameart.org/users/kurt
+Main music: http://opengameart.org/users/professorlamp
+Snoot font: Tom7
+-->
+
+<html>
+  
+  <title>You Greedy Dirtbag</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+
+  <head>
+
+    <!--Assets-->
+
+    <image class="asset" id="cursor"  src=cursor.png> </image>
+    
+    <image class="asset" id="study1"  src=Views/study_1.png> </image>
+    <image class="asset" id="study2"  src=Views/study_2.png> </image>
+    <image class="asset" id="study3"  src=Views/study_3.png> </image>
+    <image class="asset" id="study4"  src=Views/study_4.png> </image>
+    <image class="asset" id="study2_chest_open"  src=Views/study_2_chest_open.png> </image>
+
+    <image class="asset" id="box1"  src=Views/Bedroom/box1.png> </image>
+    <image class="asset" id="box2"  src=Views/Bedroom/box2.png> </image>
+    <image class="asset" id="box3"  src=Views/Bedroom/box3.png> </image>
+    <image class="asset" id="box4"  src=Views/Bedroom/box4.png> </image>
+    <image class="asset" id="box5"  src=Views/Bedroom/box5.png> </image>
+    <image class="asset" id="box6"  src=Views/Bedroom/box6.png> </image>
+
+    <image class="asset" id="bedroom1"  src=Views/Bedroom/wall1.png> </image>
+    <image class="asset" id="bedroom20"  src=Views/Bedroom/wall2.0.png> </image>
+    <image class="asset" id="bedroom21"  src=Views/Bedroom/wall2.1.png> </image>
+    <image class="asset" id="bedroom22"  src=Views/Bedroom/wall2.2.png> </image>
+    <image class="asset" id="bedroom3"  src=Views/Bedroom/wall3.png> </image>
+    <image class="asset" id="bedroom40"  src=Views/Bedroom/wall4.0.png> </image>
+    <image class="asset" id="bedroom41"  src=Views/Bedroom/wall4.1.png> </image>
+    <image class="asset" id="bedroom42"  src=Views/Bedroom/wall4.2.png> </image>
+    
+    <image class="asset" id="hallway_door"  src=Views/hallway_door.png> </image>
+
+    <image class="asset" id="gold_key"  src=Items/big_gold_key.png> </image>
+    <image class="asset" id="tiny_key"  src=Items/tiny_key.png> </image>
+
+    <image class="asset" id="cash_stack"  src=Items/cash_stack.png> </image>
+        
+
+    <image class="asset" id="back_arrow_high"  src=Arrows/back_high.png> </image>
+    <image class="asset" id="left_arrow_high"  src=Arrows/left_high.png> </image>
+    <image class="asset" id="right_arrow_high"  src=Arrows/right_high.png> </image>
+    <image class="asset" id="back_arrow_low"  src=Arrows/back_low.png> </image>
+    <image class="asset" id="left_arrow_low"  src=Arrows/left_low.png> </image>
+    <image class="asset" id="right_arrow_low"  src=Arrows/right_low.png> </image>
+    
+    <audio class="asset" loop="true" id="music" src="Sound/Harp.mp3" type="audio/mpeg"></audio>
+    <audio class="asset" loop="true" id="water" src="Sound/water.mp3" type="audio/mpeg"></audio>
+    <audio class="asset" id="door_sfx" src="Sound/door.mp3" type="audio/mpeg"></audio>
+    <audio class="asset" id="door_sfx_2" src="Sound/door2.mp3" type="audio/mpeg"></audio>
+    <audio class="asset" id="flush" src="Sound/flush.mp3" type="audio/mpeg"></audio>
+    <audio class="asset" id="crack" src="Sound/crack.mp3" type="audio/mpeg"></audio>
+    <audio class="asset" id="epilogue" src="Sound/epilogue.mp3" type="audio/mpeg"></audio>
+    
+    <!--/Assets-->
+    
+    <script type="text/javascript" src="src/allAssetsLoaded.js"></script>
+
+    <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>-->
+    <script type="text/javascript" src="src/GameMaths.js"></script>
+
+  </head>
+
+  <body>
+    
+    <canvas id="canvas" width="0" height="0">
+
+      <script type="text/javascript" src="src/GameBoilerplate.js"></script>
+      
+      <script type="text/javascript" src="src/Animation.js"></script>
+      <script type="text/javascript" src="src/2D%20Shapes.js"></script>
+      
+      <script type="text/javascript" src="src/view.js"></script>
+      <script type="text/javascript" src="src/Textbox.js"></script>
+      <script type="text/javascript" src="src/inventory.js"></script>
+      <script type="text/javascript" src="src/backArrow.js"></script>
+      <script type="text/javascript" src="src/item.js"></script>
+      <script type="text/javascript" src="src/moneyCounter.js"></script>
+
+      <script type="text/javascript" src="src/game.js"></script>
+    </canvas>
+  </body>
+</html>

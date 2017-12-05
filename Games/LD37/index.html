@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<!--
+Attribution:
+Cabinet image and ideas: Neska Connon
+Glass sfx: http://opengameart.org/users/spookymodem
+Door sfx: https://medium.com/@qubodup
+Water sfx: http://opengameart.org/users/kurt
+Main music: http://opengameart.org/users/professorlamp
+Snoot font: Tom7
+-->
+
+<html>
+    
+    <title>Escape the Bathroom</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+
+	<head>
+
+		<!--Assets-->
+        
+        <image class="asset" id="wall1"  src=Views/wall1.png> </image>
+        <image class="asset" id="wall2"  src=Views/wall2.png> </image>
+        <image class="asset" id="window" src=Views/Window.png></image>
+        
+        <image class="asset" id="cabinet0" src=Views/Cabinet/cabinet0.png></image>
+        <image class="asset" id="cabinet1" src=Views/Cabinet/cabinet1.png></image>
+        <image class="asset" id="cabinet2" src=Views/Cabinet/cabinet2.png></image>
+        <image class="asset" id="cabinet3" src=Views/Cabinet/cabinet3.png></image>
+        <image class="asset" id="cabinet4" src=Views/Cabinet/cabinet4.png></image>
+        <image class="asset" id="cabinet5" src=Views/Cabinet/cabinet5.png></image>
+        <image class="asset" id="cabinet6" src=Views/Cabinet/cabinet6.png></image>
+        
+        <image class="asset" id="door_closed" src=Views/door_closed.png></image>
+        <image class="asset" id="door_open" src=Views/door_open.png></image>
+        
+        <image class="asset" id="toilet" src=Views/toilet.png></image>
+        
+        <image class="asset" id="sink"   src=Views/Sink/sink_dry.png>  </image>
+        
+        <image class="asset" name="sink_running" id="sink_running_1"   src=Views/Sink/sink_running_1.png></image>
+        <image class="asset" name="sink_running" id="sink_running_2"   src=Views/Sink/sink_running_2.png></image>
+        <image class="asset" name="sink_running" id="sink_running_3"   src=Views/Sink/sink_running_3.png></image>
+        <image class="asset" name="sink_running" id="sink_running_4"   src=Views/Sink/sink_running_4.png></image>
+        <image class="asset" name="sink_running" id="sink_running_5"   src=Views/Sink/sink_running_5.png></image>
+        <image class="asset" name="sink_running" id="sink_running_6"   src=Views/Sink/sink_running_6.png></image>
+        
+        <image class="asset" id="arrow_low" src=arrow_low.png></image>
+        <image class="asset" id="arrow_high" src=arrow_high.png></image>
+        
+        <audio class="asset" loop="true" id="music" src="Sound/in%20a%20sentimental%20mood.mp3" type="audio/mpeg"></audio>
+        <audio class="asset" loop="true" id="water" src="Sound/water.mp3" type="audio/mpeg"></audio>
+        <audio class="asset" id="door_sfx" src="Sound/door.mp3" type="audio/mpeg"></audio>
+        <audio class="asset" id="door_sfx_2" src="Sound/door2.mp3" type="audio/mpeg"></audio>
+        <audio class="asset" id="flush" src="Sound/flush.mp3" type="audio/mpeg"></audio>
+        <audio class="asset" id="crack" src="Sound/crack.mp3" type="audio/mpeg"></audio>
+        <audio class="asset" id="epilogue" src="Sound/epilogue.mp3" type="audio/mpeg"></audio>
+        
+		<!--/Assets-->
+        
+        <script type="text/javascript" src="src/allAssetsLoaded.js"></script>
+
+        <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>-->
+        <script type="text/javascript" src="src/GameMaths.js"></script>
+
+	</head>
+
+	<body>
+        
+		<canvas id="canvas" width="0" height="0">
+
+            <script type="text/javascript" src="src/GameBoilerplate.js"></script>
+            
+            <script type="text/javascript" src="src/Animation.js"></script>
+            <script type="text/javascript" src="src/2D%20Shapes.js"></script>
+            
+            <script type="text/javascript" src="src/view.js"></script>
+            <script type="text/javascript" src="src/Textbox.js"></script>
+            <script type="text/javascript" src="src/backArrow.js"></script>
+
+
+			<script type="text/javascript" src="src/game.js"></script>
+		</canvas>
+	</body>
+</html>

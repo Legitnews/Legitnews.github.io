@@ -9,7 +9,7 @@ function TextBox(text, speaker, clip){
 	this.index = 0;
 
 	this.textColour = "#000000"
-	this.font = "24px Snoot";
+	this.font = "14px Verdana";
 	this.textSize = 18;
 
 	this.outlineWidth = 10;
@@ -49,8 +49,6 @@ function TextBox(text, speaker, clip){
 
 		ctx.fillStyle = this.textColour;
 		ctx.font = this.font;
-
-
 
 		wrapText(ctx, (speaker ? this.speaker + ":\n" : "") + this.revealedText, this.pos.x + this.outlineWidth / 2, this.pos.y + this.outlineWidth / 2 + this.textSize, this.size.x - this.outlineWidth/2, this.textSize);
 	};

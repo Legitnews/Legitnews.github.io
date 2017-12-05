@@ -1,0 +1,914 @@
+/*
+ * 
+ */
+ 
+"use strict";
+ 
+canvas.oncontextmenu = function(e){ e.preventDefault(); return false; };
+
+function setCanvasSize(){
+    /*var x = 0;
+    
+    for (var i=13; i >= 7; i--){
+        dim = 1 << i;
+        
+        if (window.innerHeight > dim && window.innerWidth > dim){
+            SCREEN_DIM = dim;
+            canvas.width = SCREEN_DIM;
+            canvas.height = SCREEN_DIM;
+            break;
+        }
+        }*/
+
+    canvas.width = 1280;
+    canvas.height = 720;
+    
+    ctx.imageSmoothingEnabled = false;
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+}
+
+function scaleRect(rect){
+    var scaled = rect.copy();
+    scaled.pos.x  *= canvas.width;
+    scaled.size.x *= canvas.width;
+    scaled.pos.y  *= canvas.height;
+    scaled.size.y *= canvas.height;
+
+    return scaled;
+}
+
+
+
+function squareToScreen(v2){
+    var result = new Vector2(0, 0);
+    
+    var ratio = canvas.height / canvas.width;
+    
+    result[0] = v2[0] * ratio;
+    result[1] = v2[1];
+    
+    return result;
+}
+
+function squareToScreenRect(rect){
+    rect.pos  = squareToScreen(rect.pos);
+    rect.size = squareToScreen(rect.size);
+}
+
+function toUnit(v2){
+    v2[0] /= 192;
+    v2[1] /= 108;
+
+    return v2;
+}
+
+function makeUnitRect(x, y, w, h){
+    return new Rect([x/192, y / 108], [w / 192, h / 108]);
+}
+
+function makeUnitRectSquare(x, y, w, h){
+    return new Rect([(x+42) / 192, y / 108], [w / 192, h / 108])
+}
+
+var Game = {
+	
+    started : false,
+    
+    music : document.getElementById("music"),
+    epilogue : document.getElementById("epilogue"),
+    
+    views : {},
+    currentView : null,
+
+    cursor : document.getElementById("cursor"),
+    cursorScale : squareToScreen([0.1, 0.1]),
+    
+    fadeOutTime : 8,
+    fadeOutTimeRemaining : 8,
+    fadingOut : false,
+    playedEpilogue : false,
+
+    backArrow : new Arrow(
+        document.getElementById("back_arrow_low"),
+        document.getElementById("back_arrow_high"),
+        new Rect([0.443, 0.888], [0.099, 0.093]),
+    ),
+
+    leftArrow : new Arrow(
+        document.getElementById("left_arrow_low"),
+        document.getElementById("left_arrow_high"),
+        new Rect([0.021, 0.380], [0.052, 0.176]),
+    ),
+
+    rightArrow : new Arrow(
+        document.getElementById("right_arrow_low"),
+        document.getElementById("right_arrow_high"),
+        new Rect([0.927, 0.380], [0.052, 0.176]),
+    ),
+    
+    intro : function(){
+		
+    },
+    
+    init : function(){
+	this.intro();
+        
+        setCanvasSize();
+
+        this.cursorScale = squareToScreen([0.1, 0.1]);
+    },
+    
+    firstUpdate : function(){
+        this.addViews();
+        AnimationThread.start();
+        
+        this.currentView = this.views["Hallway1"];
+        
+        this.music.play();
+        
+        Textbox.setText("I find myself rather hard up at the moment. Dreadfully hard up, in fact. Details aren't important, a couple of investments didn't go my way, is all. \nI've invited myself round to Dad's old house to see if he's got a cure lying around. He's a damn fool of an invalid, and lonely these days. Only thing he's got is more money than he could ever find a use for. \nI'll have a quick rummage around, pocket what I can see make my way home for tea.");
+    },
+    
+    addViews : function(){
+
+        var big_gold_key = new Item(
+            "Gold Key",
+            makeUnitRect(163, 54, 6, 6),
+            document.getElementById("gold_key"),
+            "A there was a gold key under the lampshade.",
+            null,
+            true,
+            0,
+            true,
+            function() {
+                Game.views["Bedroom41"].render = new Animation([document.getElementById("bedroom42")], 0, false);
+            },
+            true,
+        );
+
+        var tiny_key = new Item(
+            "Tiny Key",
+            makeUnitRect(163, 80, 15, 15),
+            document.getElementById("tiny_key"),
+            "A tiny key, how odd.",
+            null,
+            true,
+            0,
+            true,
+            function(){
+                Game.setCurrentView(Game.views["Box3"]);
+                Game.views["Bedroom3"].clickables[0].newView = Game.views["Box3"];
+            },
+        );
+
+        var cash_stack = new Item(
+            "Cash Stack",
+            new Rect([.203, .869], squareToScreen([.08, .08])),
+            document.getElementById("cash_stack"),
+            "A handy pile of cash, sitting out on the bookshelf. Don't mind of I do.",
+            null,
+            false,
+            500,
+        )
+
+        this.views["Study1"] =
+            new View(
+                "Study1",
+                document.getElementById("study1"),
+                null,
+                [
+                    new Clickable(
+                        "Drawers",
+                        makeUnitRect(21, 61, 110, 47),
+                        "A wooden chest of drawers. Might be worth my while having a look in here."
+                    ),
+
+                    new Clickable(
+                        "Drawer 1",
+                        makeUnitRect(22, 75, 94, 10),
+                        "I wonder what we have in here",
+                    ),
+
+                    new Clickable(
+                        "Drawer 2",
+                        makeUnitRect(22, 89, 94, 10),
+                        "Anything in here of note?",
+                    ),
+
+                    new Clickable(
+                        "Door",
+                        makeUnitRect(141, 36, 37, 71),
+                        "The door leading to the Hallway.",
+                        
+                    ),
+
+                    new Clickable(
+                        "Door Handle",
+                        makeUnitRect(169, 70, 6, 9),
+                        "",
+                        null, // Leave the room
+                        document.getElementById("door_sfx_2"),
+                        function(){ Game.setCurrentView(Game.views["Hallway1"]); },
+                    ),
+                    
+                    new Clickable(
+                        "Vase",
+                        new Rect([0.156, 0.426], [0.052, 0.176]),
+                        "A purple vase with a single, wilted flower inside. Old dad never was much for nurturing."
+                    ),
+
+                    new Clickable(
+                        "Painting",
+                        makeUnitRect(84, 29, 32, 21),
+                        "A landscape painting Dad bought in Italy in his youth. I never understood it really, I suppose the blocky style must symbolise something.",
+                    ),
+                ],
+                [
+                    
+                ],
+            );
+
+        this.views["Study2"] =
+            new View(
+                "Study2",
+                document.getElementById("study2"),
+                null,
+                [
+                    new Clickable(
+                        "Chest",
+                        new Rect([0.651, 0.639], [0.276, 0.361]),
+                        "This chest is locked, but I'll wager the old man has something nice stashed in here. I should look for the key.",
+                        null,
+                        null,
+                        null,
+                        big_gold_key,
+                        "The key opens the chest.",
+                        null,
+                        function() {
+                            Game.views["Study2"].render = new Animation([document.getElementById("study2_chest_open")], 0, false);
+                            Game.views["Study2"].clickables[0] = new Clickable(
+                                "Open Chest",
+                                new Rect([0.651, 0.550], [0.276, 0.450]),
+                                "Now, what do we have in here?",
+                                null, // Change soon
+                            )
+                        },
+                    ),
+
+                    new Clickable(
+                        "Book Case",
+                        makeUnitRect(28, 34, 68, 73),
+                        "A mahogany book case. I think it dreadfully big for how few books it could store, entirely impractical.",
+                    ),
+
+                    new Clickable(
+                        "Encyclopedia",
+                        makeUnitRect(31, 52, 48, 11),
+                        "The Encyclopedia Brittanica, Ninth Edition. Dad lost most of the volumes moving house, not as though he has much use for them these days.",
+                    ),
+
+                    new Clickable(
+                        "Great War Book",
+                        makeUnitRect(34, 71, 10, 12),
+                        "\"The Great War 1914-1918: Lessons and Losses.\", That goodness that's over, and praise God I was able to shirk it.",
+                    ),
+
+                    new Clickable(
+                        "Will",
+                        makeUnitRect(68, 79, 8, 9),
+                        "Hullo, what's this?\nIt's Dad's will! Let's have a look then, shall we?\n\n\"...bequeath my entire estate to my son, my only living relative and the only one I can trust.\"\n\nWell, that's a relief.",
+                    ),
+
+                    new Clickable(
+                        "Parenting book",
+                        makeUnitRect(70, 77, 9, 7),
+                        "\"Miss Leslie's Guide to The Proper Raising and Disciplining of Children.\", it's rather the worse for wear.",
+                    ),
+
+                    new Clickable(
+                        "Maths book",
+                        makeUnitRect(59, 71, 15, 8),
+                        "\"Vector Analysis and Quaternions\", Dad always did like that old maths. I can't stand it myself, pointless stuff unless you're an accountant."
+                    )
+                    
+                ],
+                [
+                    cash_stack,
+                ],
+            )
+
+        this.views["Study3"] =
+            new View(
+                "Study3",
+                document.getElementById("study3"),
+                null,
+                [
+                    new Clickable(
+                        "Dad",
+                        makeUnitRect(24, 51, 18, 32),
+                        "I'm glad you've come to visit, son. I'm awfully lonely these days.",
+                        // Make him say different stuff?
+                    ),
+
+                    new Clickable(
+                        "Chair",
+                        makeUnitRect(62, 60, 26, 48),
+                        "Dad's Chair. It used to be at the desk, but he never sits there these days.",
+                    ),
+
+                    new Clickable(
+                        "Pillow",
+                        makeUnitRect(64, 65, 22, 20),
+                        "A pillow on the chair. Dad's always complaining about his back.",
+                    ),
+
+                    
+                ],
+                [
+                    
+                ],
+            )
+
+        this.views["Study4"] =
+            new View(
+                "Study4",
+                document.getElementById("study4"),
+                null,
+                [
+                    new Clickable(
+                        "Desk",
+                        makeUnitRect(38, 56, 122, 52),
+                        "Dad's writing desk."
+                    ),
+
+                    new Clickable(
+                        "Desk Drawer",
+                        makeUnitRect(99, 71, 40, 15),
+                        "Now I wonder what the old man's got stashed in here.",
+                    ),
+                ],
+                [
+                    
+                ],
+            )
+
+        //this.views["Study1"].back = this.views["Study1"];
+        //this.views["Study1"].left = this.views["Study1"];
+        this.views["Study1"].right = this.views["Study2"];
+        this.views["Study1"].left  = this.views["Study4"];
+        this.views["Study2"].left  = this.views["Study1"];
+        this.views["Study2"].right = this.views["Study3"];
+        this.views["Study3"].left  = this.views["Study2"];
+        this.views["Study3"].right = this.views["Study4"];
+        this.views["Study4"].left  = this.views["Study3"];
+        this.views["Study4"].right = this.views["Study1"];
+
+        this.views["Box6"] =
+            new View(
+                "Box6",
+                document.getElementById("box6"),
+                null,
+                [
+                    new Clickable(
+                        "Keyhole",
+                        makeUnitRect(110, 9, 37, 52),
+                        "My mother was quite pretty in her youth, I suppose. Damn shame she's dead.",
+                    ),
+                ],
+                [
+                    
+                ],
+            ),
+        this.views["Box5"] = 
+            new View(
+                "Box5",
+                document.getElementById("box5"),
+                null,
+                [
+                    new Clickable(
+                        "Keyhole",
+                        makeUnitRect(83, 36, 26, 38),
+                        "What do I do with this little hole again?",
+                        null,
+                        null,
+                        null,
+                        tiny_key,
+                        "Ah right, it was a key hole.",
+                        this.views["Box6"],
+                        function(){
+                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box6"];
+                        }
+                    ),
+                ],
+                [
+                    
+                ],
+            );
+
+        this.views["Box4"] =
+            new View(
+                "Box4",
+                document.getElementById("box4"),
+                null,
+                [
+                    new Clickable(
+                        "Slat",
+                        makeUnitRect(83, 56, 26, 38),
+                        "And this slat slides out, I remember now!",
+                        this.views["Box5"],
+                        null,
+                        function(){
+                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box5"];
+                        }
+                    ),
+                ],
+                [
+                    
+                ],
+            );
+
+         this.views["Box3"] =
+            new View(
+                "Box3",
+                document.getElementById("box3"),
+                null,
+                [
+                    new Clickable(
+                        "Bottom",
+                        makeUnitRect(16, 76, 166, 24),
+                        "Now the bottom slides back.",
+                        this.views["Box4"],
+                        null,
+                        function(){
+                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box4"];
+                        }
+                    ),
+                ],
+                [
+                    
+                ],
+            );
+
+        this.views["Box2"] =
+            new View(
+                "Box2",
+                document.getElementById("box3"),
+                null,
+                [
+                    
+                ],
+                [
+                    tiny_key,
+                ],
+            );
+        
+        this.views["Box1"] =
+            new View(
+                "Box1",
+                document.getElementById("box1"),
+                null,
+                [
+                    new Clickable(
+                        "Slit",
+                        makeUnitRect(175, 79, 16, 19),
+                        "Ah, this part slides open.",
+                        this.views["Box2"],
+                        null,
+                        function(){
+                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box2"];
+                        }
+                    ),
+                ],
+                [
+                    
+                ],
+            );
+
+        this.views["Bedroom1"] =
+            new View(
+                "Bedroom1",
+                document.getElementById("bedroom1"),
+                null,
+                [
+                    new Clickable(
+                        "Door",
+                        makeUnitRect(121, 33, 44, 75),
+                        "The door to the hallway.",
+                    ),
+
+                    new Clickable(
+                        "Handle",
+                        makeUnitRect(125, 71, 6, 6),
+                        "",
+                        null,
+                        door_sfx_2,
+                        function(){ Game.setCurrentView(Game.views["Hallway2"]); },
+                    ),
+
+                    new Clickable(
+                        "Sofa",
+                        makeUnitRect(28, 73, 76, 28),
+                        "A sofa."
+                    ),
+                ],
+                [
+                    new Item(
+                        "Sofa Change",
+                        makeUnitRect(28, 73, 76, 28),
+                        null,
+                        "Yes, there are a few coins in here.",
+                        null,
+                        false,
+                        4,
+                        false,
+                        null,
+                        true,
+                    ),
+                    new Item(
+                        "Sofa Initial",
+                        makeUnitRect(28, 73, 76, 28),
+                        null,
+                        "I say, I wonder whether I could find some loose change amongst the cushions of this sofa.",
+                        null,
+                        false,
+                        0,
+                        false,
+                        null,
+                        true,
+                    ),
+                ],
+            );
+
+        this.views["Bedroom21"] =
+            new View(
+                "Bedroom21",
+                document.getElementById("bedroom21"),
+                null,
+                [
+                    new Clickable(
+                        "Wardrobe",
+                        makeUnitRect(150, 38, 39, 70),
+                        "A wardrobe",
+                    ),
+                ],
+                [
+                    new Item(
+                        "Piggy Bank",
+                        makeUnitRect(146, 81, 32, 27),
+                        null,
+                        "My piggy bank from when I was a child, I haven't seen this in ages!",
+                        null,
+                        false,
+                        17,
+                        false,
+                        function(){ Game.views["Bedroom21"].render = new Animation([document.getElementById("bedroom22")], 0, false); },
+                        true,
+                        big_gold_key, // Change to hammer
+                        "Ah yes, plenty of change in here",
+                    ),
+                    
+                ],
+            );
+        
+        this.views["Bedroom20"] =
+            new View(
+                "Bedroom20",
+                document.getElementById("bedroom20"),
+                null,
+                [
+                    new Clickable(
+                        "Wardrobe",
+                        makeUnitRect(150, 38, 39, 70),
+                        "A wardrobe",
+                    ),
+                    new Clickable(
+                        "Handle",
+                        makeUnitRect(156, 77, 9, 9),
+                        "Let's have a look in here.",
+                        this.views["Bedroom21"],
+                    ),
+                ],
+                [
+                    
+                ],
+            );
+
+        this.views["Bedroom3"] =
+            new View(
+                "Bedroom3",
+                document.getElementById("bedroom3"),
+                null,
+                [
+                    new Clickable(
+                        "Jewellery Box",
+                        makeUnitRect(103, 77, 14, 5),
+                        "My mother's jewellery box, how do you open this thing again?",
+                        this.views["Box1"],
+                    ),
+                ],
+                [
+                    
+                ],
+            );
+
+        var bedroom4_common_clickables = [
+            new Clickable(
+                "Side Table 1",
+                makeUnitRect(19, 74, 20, 34),
+                "My father's side table. It must help him find his way to bed, if nothing else.",
+            ),
+            new Clickable(
+                "Side Table 2",
+                makeUnitRect(153, 74, 20, 34),
+                "My mother's side table. It's gathered a lot of dust.",
+            ),
+            new Clickable(
+                "Magazines 1",
+                makeUnitRect(24, 92, 7, 18),
+                "I suppose no-one reads these anymore.",
+            ),
+            new Clickable(
+                "Magzines 2",
+                makeUnitRect(159, 92, 7, 18),
+                "A lot old magazines, years out of date.",
+            ),
+            new Clickable(
+                "Bed",
+                makeUnitRect(62, 62, 69, 42),
+                "My parents' bed. The right side is messy but the left is immaculate.",
+            ),
+        ];
+
+        this.views["Bedroom41"] =
+            new View(
+                "Bedroom4",
+                document.getElementById("bedroom41"),
+                null,
+                [
+                    new Clickable(
+                        "Lamp",
+                        makeUnitRect(156, 52, 14, 21),
+                        "I turn off the lamp.",
+                        null,
+                        null,
+                        function() { Game.setCurrentView(Game.views["Bedroom40"]) },
+                    ),
+                ].concat(bedroom4_common_clickables),
+                [
+                    big_gold_key,
+                ],
+            );
+
+        this.views["Bedroom40"] =
+            new View(
+                "Bedroom4",
+                document.getElementById("bedroom40"),
+                null,
+                [
+                    new Clickable(
+                        "Lamp",
+                        makeUnitRect(156, 52, 14, 21),
+                        "I turn on the lamp.",
+                        this.views["Bedroom41"],
+                    ),
+                ].concat(bedroom4_common_clickables),
+                [
+                    
+                ],
+            );
+
+        this.views["Bedroom1"].left   = this.views["Bedroom20"];
+        this.views["Bedroom1"].right  = this.views["Bedroom3"];
+        this.views["Bedroom20"].left  = this.views["Bedroom40"];
+        this.views["Bedroom20"].right = this.views["Bedroom1"];
+        this.views["Bedroom21"].left  = this.views["Bedroom40"];
+        this.views["Bedroom21"].right = this.views["Bedroom1"];
+        this.views["Bedroom3"].left   = this.views["Bedroom1"];
+        this.views["Bedroom3"].right  = this.views["Bedroom40"];
+        this.views["Bedroom40"].left  = this.views["Bedroom3"];
+        this.views["Bedroom40"].right = this.views["Bedroom20"];
+        this.views["Bedroom41"].left  = this.views["Bedroom3"];
+        this.views["Bedroom41"].right = this.views["Bedroom20"];
+
+        this.views["Box1"].back = this.views["Bedroom3"];
+        this.views["Box2"].back = this.views["Bedroom3"];
+        this.views["Box3"].back = this.views["Bedroom3"];
+        this.views["Box4"].back = this.views["Bedroom3"];
+        this.views["Box5"].back = this.views["Bedroom3"];
+        this.views["Box6"].back = this.views["Bedroom3"];
+        
+        this.views["Hallway1"] =
+            new View(
+                "Hallway1",
+                document.getElementById("hallway_door"),
+                null,
+                [
+                    new Clickable(
+                        "Door",
+                        makeUnitRectSquare(29, 24, 47, 84),
+                        "The door to the bedroom",
+                    ),
+
+                    new Clickable(
+                        "Handle",
+                        makeUnitRectSquare(66, 59, 6, 9),
+                        "",
+                        this.views["Bedroom40"],
+                        door_sfx_2,
+                    ),
+                ],
+                [
+                    
+                ],
+                true,
+            )
+
+        this.views["Hallway2"] =
+            new View(
+                "Hallway2",
+                document.getElementById("hallway_door"),
+                null,
+                [
+                    new Clickable(
+                        "Door",
+                        makeUnitRectSquare(29, 24, 47, 84),
+                        "The door to the study.",
+                    ),
+
+                    new Clickable(
+                        "Handle",
+                        makeUnitRectSquare(66, 59, 6, 9),
+                        "",
+                        this.views["Study3"],
+                        door_sfx_2,
+                    ),
+                ],
+                [
+                    
+                ],
+                true,
+            )
+
+        this.views["Hallway1"].back = this.views["Hallway2"];
+        this.views["Hallway2"].back = this.views["Hallway1"];        
+    },
+    
+    win : function(){
+        this.fadingOut = true;
+        console.log(this.fadingOut);
+    },
+	
+    update : function(){
+	
+	if (! this.started){
+	    if (allAssetsLoaded()){
+		this.started = true;
+                this.firstUpdate();
+	    }
+	    
+	    return;
+	}
+
+        MoneyCounter.update(deltaTime);
+        Inventory.update(deltaTime);
+        Textbox.update(deltaTime);
+        
+        if (this.fadingOut && this.fadeOutTimeRemaining > 0){ 
+            this.fadeOutTimeRemaining = Math.max(0, this.fadeOutTimeRemaining-deltaTime);
+        }
+        
+        ctx.globalAlpha = this.fadeOutTimeRemaining / this.fadeOutTime;
+        this.music.volume = this.fadeOutTimeRemaining / this.fadeOutTime;
+        
+        if (this.fadeOutTimeRemaining <= 0 && !this.playedEpilogue){
+            this.epilogue.play();
+            this.playedEpilogue = true;
+        }
+    },
+    
+    render : function(){
+	
+	if (! this.started){
+	    this.intro();
+	    return;
+	}
+        
+        this.renderCurrentView();
+
+        for (i in this.currentView.items){
+            this.currentView.items[i].draw(ctx);
+        }
+        
+        this.drawClickableBounds();
+        Textbox.draw(ctx);
+        Inventory.draw(ctx);
+        MoneyCounter.draw(ctx);
+        if (this.currentView.back ) this.backArrow.draw(ctx, mousePos );
+        if (this.currentView.left ) this.leftArrow.draw(ctx, mousePos );
+        if (this.currentView.right) this.rightArrow.draw(ctx, mousePos);
+
+        //console.log(this.cursorScale[0]);
+
+        if (!Inventory.selectedItem){
+            ctx.drawImage(
+                this.cursor,
+                mousePos[0] - 10,
+                mousePos[1] - 20,
+                canvas.width * this.cursorScale[0],
+                canvas.height * this.cursorScale[1]
+            );
+        }
+    },
+    
+    setCurrentView : function(view){
+        if (this.currentView.sound){
+            this.currentView.sound.pause();
+        }
+        
+        this.currentView = view;
+        
+        if (this.currentView.sound){
+            this.currentView.sound.play();
+        }
+    },
+    
+    renderCurrentView : function(){
+        if (this.currentView.isSquare){
+            this.currentView.render.draw(ctx, [(canvas.width - canvas.height) / 2, 0], [canvas.height, canvas.height]);
+        } else {
+            this.currentView.render.draw(ctx, [0, 0], [canvas.width, canvas.height]);
+        }
+    },
+    
+    drawClickableBounds : function(){
+        var i = this.currentView.clickables.length;
+        
+        while (i--){
+            scaleRect(this.currentView.clickables[i].bounds).draw(ctx, 1, "#FF0000");
+        }
+
+        scaleRect(this.backArrow.bounds).draw(ctx,  1, "#FF0000");
+        scaleRect(this.leftArrow.bounds).draw(ctx,  1, "#FF0000");
+        scaleRect(this.rightArrow.bounds).draw(ctx, 1, "#FF0000");
+    },
+
+    onClick : function(){
+        if (this.backArrow.checkClick(mousePos) && this.currentView.back){
+            this.setCurrentView(this.currentView.back);
+            Textbox.setText("");
+        }
+
+        if (this.leftArrow.checkClick(mousePos) && this.currentView.left){
+            this.setCurrentView(this.currentView.left);
+            Textbox.setText("");
+        }
+
+        if (this.rightArrow.checkClick(mousePos) && this.currentView.right){
+            this.setCurrentView(this.currentView.right);
+            Textbox.setText("");
+        }
+
+        Inventory.checkClick();
+        
+        var clickable = this.currentView.checkClickables(mousePos);
+        
+        if (!clickable){
+            return;
+        }
+        
+        clickable.activate();
+    }
+}
+
+window.onresize = setCanvasSize;
+canvas.onmousedown = function() { Game.onClick(); };
+
+function init(){
+    Game.init();
+}
+
+function update(){
+    updateDeltaTime();
+    Game.update();
+}
+
+function render(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    Game.render();
+}
+
+function main(){
+    console.time('init timer');
+    init();
+    console.timeEnd('init timer');
+	
+    window.setInterval(update, 5);
+	
+    (function animloop(){
+  	requestAnimFrame(animloop);
+  	render();
+    })();
+}
+
+setTimeout(main, 100);
