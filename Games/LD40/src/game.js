@@ -24,8 +24,8 @@ function setCanvasSize(){
     var height = 0;
     
     for (var i=20; i > 0; i--){
-        width = 160 * i;
-        height = 90 * i;
+        width = 192 * i;
+        height = 108 * i;
 
         if (window.innerWidth > width && window.innerHeight > height){
             canvas.width = width;
@@ -173,7 +173,7 @@ var Game = {
             true,
             function(){
                 Game.setCurrentView(Game.views["Box3"]);
-                Game.views["Bedroom3"].clickables[0].newView = Game.views["Box3"];
+                Game.views["Bedroom3"].clickables[1].newView = Game.views["Box3"];
             },
         );
 
@@ -423,7 +423,7 @@ var Game = {
                     new Clickable(
                         "Great War Book",
                         makeUnitRect(34, 71, 10, 12),
-                        "\"The Great War 1914-1918: Lessons and Losses.\", That goodness that's over, and praise God I was able to shirk it.",
+                        "\"The Great War 1914-1918: Lessons and Losses.\", Thank goodness that's over, and praise God I was able to shirk it.",
                     ),
 
                     new Clickable(
@@ -525,7 +525,7 @@ var Game = {
                         null,
                         null,
                         medicine,
-                        "What's this, my sleeping draught? Time for bed already, is it? Fair enough. \nOnly bother is, that blasted gramophone is broken. It won't shut off no matter what I do. I can't just pull the record out since it would get scratched.\nI fancy it's a loose screw, but I've no way to be sure. Could you have a look at it?",
+                        "What's this, my sleeping draught? Time for bed already, is it? Fair enough. \nOnly bother is, that blasted gramophone is broken. It won't shut up no matter what I do. I can't just pull the record out since it would get scratched.\nI fancy it's a loose screw, but I've no way to be sure. Could you have a look at it?",
                         null,
                         function(){
                             Game.views["Study30"].clickables[1].text = "I've got to shut this thing up before Dad will go to bed. Loose screw, he says.";
@@ -604,7 +604,7 @@ var Game = {
                 null,
                 [
                     new Clickable(
-                        "Keyhole",
+                        "Photo",
                         makeUnitRect(110, 9, 37, 52),
                         "My mother was quite pretty in her youth, I suppose. These jewels must be worth something though. Perhaps they're antique by now.",
                     ),
@@ -656,7 +656,7 @@ var Game = {
                         "Ah right, it was a key hole.",
                         this.views["Box6"],
                         function(){
-                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box6"];
+                            Game.views["Bedroom3"].clickables[1].newView = Game.views["Box6"];
                         }
                     ),
                 ],
@@ -678,7 +678,7 @@ var Game = {
                         this.views["Box5"],
                         null,
                         function(){
-                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box5"];
+                            Game.views["Bedroom3"].clickables[1].newView = Game.views["Box5"];
                         }
                     ),
                 ],
@@ -700,7 +700,7 @@ var Game = {
                         this.views["Box4"],
                         null,
                         function(){
-                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box4"];
+                            Game.views["Bedroom3"].clickables[1].newView = Game.views["Box4"];
                         }
                     ),
                 ],
@@ -735,7 +735,7 @@ var Game = {
                         this.views["Box2"],
                         null,
                         function(){
-                            Game.views["Bedroom3"].clickables[0].newView = Game.views["Box2"];
+                            Game.views["Bedroom3"].clickables[1].newView = Game.views["Box2"];
                         }
                     ),
                 ],
